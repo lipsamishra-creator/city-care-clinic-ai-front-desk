@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --color-wa-header: #008069;
+  --color-wa-header-dark: #017561;
+  --color-wa-canvas: #efeae2;
+  --color-wa-in: #ffffff;
+  --color-wa-out: #d9fdd3;
+  --color-wa-bar: #f0f2f5;
+  --color-wa-ink: #111b21;
+  --color-wa-muted: #667781;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-wa-bar);
+  color: var(--color-wa-ink);
+  font-family: var(--font-geist-sans), -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Faint doodle texture behind the conversation, like a chat wallpaper. */
+.wa-canvas {
+  background-color: var(--color-wa-canvas);
+  background-image: radial-gradient(
+      circle at 18% 22%,
+      rgba(0, 0, 0, 0.022) 0 2px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 72% 68%,
+      rgba(0, 0, 0, 0.022) 0 2px,
+      transparent 2px
+    );
+  background-size: 140px 140px, 190px 190px;
+}
+
+/* Little tail on the first bubble of each side. */
+.wa-tail-in::before,
+.wa-tail-out::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 10px;
+  height: 14px;
+}
+
+.wa-tail-in::before {
+  left: -8px;
+  background: var(--color-wa-in);
+  clip-path: polygon(100% 0, 100% 100%, 0 0);
+  border-top-left-radius: 3px;
+}
+
+.wa-tail-out::before {
+  right: -8px;
+  background: var(--color-wa-out);
+  clip-path: polygon(0 0, 0 100%, 100% 0);
+  border-top-right-radius: 3px;
+}
+
+.wa-bubble-shadow {
+  box-shadow: 0 1px 0.5px rgba(11, 20, 26, 0.13);
+}
+
+@keyframes wa-blink {
+  0%,
+  60%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+.wa-dot {
+  animation: wa-blink 1.2s infinite ease-in-out;
+}
+
+.wa-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(11, 20, 26, 0.2) transparent;
+}
+
+.wa-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.wa-scroll::-webkit-scrollbar-thumb {
+  background: rgba(11, 20, 26, 0.2);
+  border-radius: 3px;
+}
